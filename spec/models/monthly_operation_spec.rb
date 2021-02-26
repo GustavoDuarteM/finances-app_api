@@ -3,7 +3,7 @@
 # name:                string
 # value:               float
 # date_of_operation:   date
-# type:                integer
+# type_operation:      integer
 # created_at:          datetime
 # updated_at:          datetime
 
@@ -30,8 +30,8 @@ RSpec.describe MonthlyOperation, type: :model do
     expect(monthly_operation).to_not be_valid
   end
 
-  it 'Is invalid without type ' do
-    monthly_operation = build(:monthly_operation, type: nil)
+  it 'Is invalid without operation_type ' do
+    monthly_operation = build(:monthly_operation, operation_type: nil)
     expect(monthly_operation).to_not be_valid
   end
   

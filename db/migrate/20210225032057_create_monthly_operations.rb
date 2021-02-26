@@ -4,8 +4,7 @@ class CreateMonthlyOperations < ActiveRecord::Migration[6.1]
       t.string :name
       t.float :value
       t.date :date_of_operation
-      t.integer :type
-
+      t.integer :operation_type
       t.timestamps
     end
   end

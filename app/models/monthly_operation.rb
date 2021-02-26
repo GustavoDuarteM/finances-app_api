@@ -3,15 +3,16 @@
 # name:                string
 # value:               float
 # date_of_operation:   date
-# type:                integer
+# operation_type:      integer
 # created_at:          datetime
 # updated_at:          datetime
 
 class MonthlyOperation < ApplicationRecord
-  validates :name, :date_of_operation, :type, presence: true
+  acts_as_paranoid
+  validates :name, :date_of_operation, :operation_type, presence: true
   validates :value, numericality: { greater_than: 0 }
 
-  enum type: {
+  enum operation_type: {
     onflows: 0,
     outflow: 1
   }
