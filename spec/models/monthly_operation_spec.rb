@@ -15,6 +15,11 @@ RSpec.describe MonthlyOperation, type: :model do
     expect(monthly_operation).to be_valid
   end
 
+  it 'Is valid without recurring_operation ' do
+    monthly_operation = build(:monthly_operation, recurring_operation: nil)
+    expect(monthly_operation).to be_valid
+  end
+
   it 'Is invalid without name ' do
     monthly_operation = build(:monthly_operation, name: nil)
     expect(monthly_operation).to_not be_valid
@@ -34,5 +39,9 @@ RSpec.describe MonthlyOperation, type: :model do
     monthly_operation = build(:monthly_operation, operation_type: nil)
     expect(monthly_operation).to_not be_valid
   end
-  
+
+  it "belongs to recurring operation" do
+    association = MonthlyOperation.reflect_on_association(:recurring_operation).macro
+    expect(association).to eq(:belongs_to)
+  end
 end
