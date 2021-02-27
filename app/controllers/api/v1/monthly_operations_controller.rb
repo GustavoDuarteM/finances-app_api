@@ -4,45 +4,45 @@ class Api::V1::MonthlyOperationsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create, :destroy, :update]
 
   def show
-    respond_to do |format|
-      if @monthly_operation.present?
-        format.json { render json: @monthly_operation, status: :ok }
-      else
-        format.json { render json: {}, status: :not_found }
-      end
-    end
+    not_found_monthly_operation if @monthly_operation.blank?
+
+    render json: @monthly_operation
   end
 
   def create
     @monthly_operation = MonthlyOperation.new(monthly_operation_params)
-    respond_to do |format|
-      if @monthly_operation.save
-        format.json { render json: @monthly_operation, status: :created }
-      else
-        format.json { render json: {}, status: :unprocessable_entity }
-      end
+    if @monthly_operation.save
+      render json: @monthly_operation, status: :created
+    else
+      render json: @monthly_operation.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    respond_to do |format|
-      if @monthly_operation.present? && @monthly_operation.update(monthly_operation_params)
-        format.json { render json: @monthly_operation, status: :ok }
-      else
-        format.json { render json: {}, status: :not_found }
-      end
+    not_found_monthly_operation if @monthly_operation.blank?
+
+    if @monthly_operation.update(monthly_operation_params)
+      render json: @monthly_operation
+    else
+      render json: @monthly_operation.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    respond_to do |format|
-      if @monthly_operation.present? && @monthly_operation.destroy
-        format.json { render json: {}, status: :ok }
-      else
-        format.json { render json: {}, status: :not_found }
-      end
+    not_found_monthly_operation if @monthly_operation.blank?
+
+    if @monthly_operation.destroy
+      render json: nil, status: :ok
+    else
+      render json: @monthly_operation.errors, status: :unprocessable_entity
     end
   end
+
+  def not_found_monthly_operation
+    render json: nil, status: :not_found
+  end
+
+  private
 
   def monthly_operation_params
     params.require(:monthly_operation).permit(
@@ -52,8 +52,6 @@ class Api::V1::MonthlyOperationsController < ApplicationController
       :operation_type
     )
   end
-
-  private
 
   def set_monthly_operation
     @monthly_operation = MonthlyOperation.where(id: params[:id]).first
