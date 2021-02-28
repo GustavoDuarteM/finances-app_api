@@ -4,7 +4,7 @@ class Api::V1::MonthlyOperationsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create, :destroy, :update]
 
   def show
-    not_found_monthly_operation if @monthly_operation.blank?
+    return not_found_monthly_operation if @monthly_operation.blank?
 
     render json: @monthly_operation
   end
@@ -19,7 +19,7 @@ class Api::V1::MonthlyOperationsController < ApplicationController
   end
 
   def update
-    not_found_monthly_operation if @monthly_operation.blank?
+    return not_found_monthly_operation if @monthly_operation.blank?
 
     if @monthly_operation.update(monthly_operation_params)
       render json: @monthly_operation
@@ -29,7 +29,7 @@ class Api::V1::MonthlyOperationsController < ApplicationController
   end
 
   def destroy
-    not_found_monthly_operation if @monthly_operation.blank?
+    return not_found_monthly_operation if @monthly_operation.blank?
 
     if @monthly_operation.destroy
       render json: nil, status: :ok

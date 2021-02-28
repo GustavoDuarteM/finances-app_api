@@ -9,6 +9,8 @@
 
 class MonthlyOperation < ApplicationRecord
   acts_as_paranoid
+  belongs_to :recurring_operation, optional: true
+
   validates :name, :date_of_operation, :operation_type, presence: true
   validates :value, numericality: { greater_than: 0 }
 

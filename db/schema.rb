@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_26_230021) do
+ActiveRecord::Schema.define(version: 2021_02_27_180508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,22 @@ ActiveRecord::Schema.define(version: 2021_02_26_230021) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
+    t.bigint "recurring_operation_id"
     t.index ["deleted_at"], name: "index_monthly_operations_on_deleted_at"
+    t.index ["recurring_operation_id"], name: "index_monthly_operations_on_recurring_operation_id"
   end
 
+  create_table "recurring_operations", force: :cascade do |t|
+    t.string "name"
+    t.float "value"
+    t.date "starts_in"
+    t.date "ends_in"
+    t.integer "operation_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_recurring_operations_on_deleted_at"
+  end
+
+  add_foreign_key "monthly_operations", "recurring_operations"
 end
