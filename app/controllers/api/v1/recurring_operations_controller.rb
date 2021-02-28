@@ -1,4 +1,6 @@
 class Api::V1::RecurringOperationsController < ApplicationController
+  include RecurringOperationManager
+
   before_action :set_recurring_operation, only: [:show, :destroy, :update]
   before_action :recurring_operation_params, only: [:create, :update]
   skip_before_action :verify_authenticity_token, only: [:create, :destroy, :update]
@@ -11,7 +13,7 @@ class Api::V1::RecurringOperationsController < ApplicationController
 
   def create
     @recurring_operation = RecurringOperation.new(recurring_operation_params)
-    if @recurring_operation.save
+    if RecurringOperationCreator.call(@recurring_operation)
       render json: @recurring_operation, status: :created
     else
       render json: @recurring_operation.errors, status: :unprocessable_entity
