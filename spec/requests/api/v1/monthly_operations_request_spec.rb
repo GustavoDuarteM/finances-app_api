@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Api::V1::MonthlyOperations", type: :request do
+  login_user
+
   it "Creates a MonthlyOperations" do
     monthly_operation = build(:monthly_operation).attributes
     post "/api/v1/monthly_operations", params: { monthly_operation: monthly_operation }
