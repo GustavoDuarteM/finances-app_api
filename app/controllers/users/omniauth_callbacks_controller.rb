@@ -1,6 +1,4 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  skip_before_action :authenticate_user!, only: [:google_oauth2]
-
   def google_oauth2
     @auth = request.env['omniauth.auth']
     @user = User.where(email: @auth.info.email).first_or_initialize(auth_params_user)
@@ -19,7 +17,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def failure
     redirect_to root_path
   end
-  
+
   private
 
   def auth_params_user
@@ -37,8 +35,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       refresh_token: credentials.refresh_token,
       expires: credentials.expires
     }
-
   end
+
   def credentials_params_user
     credentials = @auth.credentials
     {
@@ -48,6 +46,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       expires: credentials.expires
     }
   end
-
-
 end
+
+Tip: Based on detected gems, the following RuboCop extension libraries might be helpful:
+  * rubocop-rails (http://github.com/rubocop-hq/rubocop-rails)
+  * rubocop-rspec (http://github.com/rubocop-hq/rubocop-rspec)
+
+You can opt out of this message by adding the following to your config (see https://docs.rubocop.org/rubocop/extensions.html#extension-suggestions for more options):
+  AllCops:
+    SuggestExtensions: false
