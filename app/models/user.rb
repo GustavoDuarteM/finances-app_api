@@ -12,8 +12,7 @@
 # updated_at:      datetime
 
 class User < ApplicationRecord
-  devise :timeoutable, :omniauthable, omniauth_providers: [:google_oauth2]
+  devise :trackable, :timeoutable, :omniauthable, omniauth_providers: [:google_oauth2]
 
   validates :name, :email, :uid, presence: true
-    
 end
