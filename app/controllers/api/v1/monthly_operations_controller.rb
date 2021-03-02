@@ -1,7 +1,6 @@
 class Api::V1::MonthlyOperationsController < ApplicationController
   before_action :set_monthly_operation, only: [:show, :destroy, :update]
   before_action :monthly_operation_params, only: [:create, :update]
-  skip_before_action :verify_authenticity_token, only: [:create, :destroy, :update]
 
   def show
     return not_found_monthly_operation if @monthly_operation.blank?

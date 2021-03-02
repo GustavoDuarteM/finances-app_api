@@ -3,7 +3,6 @@ class Api::V1::RecurringOperationsController < ApplicationController
 
   before_action :set_recurring_operation, only: [:show, :destroy, :update]
   before_action :recurring_operation_params, only: [:create, :update]
-  skip_before_action :verify_authenticity_token, only: [:create, :destroy, :update]
 
   def show
     not_found_recurring_operation if @recurring_operation.blank?
