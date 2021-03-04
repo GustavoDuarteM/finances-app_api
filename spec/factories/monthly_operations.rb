@@ -4,6 +4,6 @@ FactoryBot.define do
     value { Faker::Commerce.price }
     date_of_operation { Faker::Date.between(from: 2.year.ago, to: 2.year.from_now).to_date }
     operation_type { rand(0..1) }
-    association :recurring_operation, factory: :recurring_operation
+    association :user, factory: :user
   end
 end
