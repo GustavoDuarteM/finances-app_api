@@ -1,17 +1,17 @@
-class Api::V1::RecurringOperationsController < ApplicationController
+class Api::V1::RecurringOperationsController < ApiApplicationController
   include RecurringOperationManager
 
   before_action :set_recurring_operation, only: [:show, :destroy, :update]
   before_action :recurring_operation_params, only: [:create, :update]
 
   def show
-    not_found_recurring_operation if @recurring_operation.blank?
+    return not_found_recurring_operation if @recurring_operation.blank?
 
     render json: @recurring_operation
   end
 
   def create
-    @recurring_operation = RecurringOperation.new(recurring_operation_params)
+    @recurring_operation = @user.recurring_operations.new(recurring_operation_params)
     if RecurringOperationCreator.call(@recurring_operation)
       render json: @recurring_operation, status: :created
     else
@@ -20,7 +20,7 @@ class Api::V1::RecurringOperationsController < ApplicationController
   end
 
   def update
-    not_found_recurring_operation if @recurring_operation.blank?
+    return not_found_recurring_operation if @recurring_operation.blank?
 
     if @recurring_operation.update(recurring_operation_params)
       render json: @recurring_operation
@@ -30,7 +30,7 @@ class Api::V1::RecurringOperationsController < ApplicationController
   end
 
   def destroy
-    not_found_recurring_operation if @recurring_operation.blank?
+    return not_found_recurring_operation if @recurring_operation.blank?
 
     if @recurring_operation.destroy
       render json: nil, status: :ok

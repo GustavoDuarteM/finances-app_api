@@ -1,4 +1,4 @@
-class Api::V1::MonthlyOperationsController < ApplicationController
+class Api::V1::MonthlyOperationsController < ApiApplicationController
   before_action :set_monthly_operation, only: [:show, :destroy, :update]
   before_action :monthly_operation_params, only: [:create, :update]
 
@@ -9,7 +9,7 @@ class Api::V1::MonthlyOperationsController < ApplicationController
   end
 
   def create
-    @monthly_operation = MonthlyOperation.new(monthly_operation_params)
+    @monthly_operation = @user.monthly_operations.new(monthly_operation_params)
     if @monthly_operation.save
       render json: @monthly_operation, status: :created
     else

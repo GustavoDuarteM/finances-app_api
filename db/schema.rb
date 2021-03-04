@@ -39,9 +39,9 @@ ActiveRecord::Schema.define(version: 2021_03_02_091802) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
-    t.bigint "users_id", null: false
+    t.bigint "user_id", null: false
     t.index ["deleted_at"], name: "index_recurring_operations_on_deleted_at"
-    t.index ["users_id"], name: "index_recurring_operations_on_users_id"
+    t.index ["user_id"], name: "index_recurring_operations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -66,5 +66,5 @@ ActiveRecord::Schema.define(version: 2021_03_02_091802) do
 
   add_foreign_key "monthly_operations", "recurring_operations"
   add_foreign_key "monthly_operations", "users"
-  add_foreign_key "recurring_operations", "users", column: "users_id"
+  add_foreign_key "recurring_operations", "users"
 end

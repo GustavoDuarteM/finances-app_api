@@ -9,13 +9,14 @@ module RecurringOperationManager
     def call
       due_date = @recurring_operation.starts_in.beginning_of_month
       ends = @recurring_operation.ends_in || Time.now
-
+      user = @recurring_operation.user
       while due_date <= ends
         @recurring_operation.monthly_operations.new(
           name: @recurring_operation.name,
           value: @recurring_operation.value,
           date_of_operation: calculate_due_date(due_date),
-          operation_type: @recurring_operation.operation_type
+          operation_type: @recurring_operation.operation_type,
+          user: user
         )
         due_date += 1.month
       end
