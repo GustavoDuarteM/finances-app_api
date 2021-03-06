@@ -1,24 +1,11 @@
-# README
+# FinacesApp
+##### 🚧 Em construção...  🚧
+### Esse sistema é uma ferramenta para a minha gestão financeira. Depois de alguns anos usando uma planilha, e uma pequena tragédia durante a simulação de algumas compras, eu decidi criar esse sistema.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A proposta é poder gerenciar : 
+- 💰 Ganhos
+- 💸 Gastos
+- 📈 Simular cenários de compras.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+![Desktop](https://user-images.githubusercontent.com/79589308/110217088-0427b180-7e91-11eb-9cdc-7eb1cfea34f6.png)
+[Wireframe](https://www.figma.com/file/5mGBZsEyRURATMKwI8Bwiz/Finance-App?node-id=15%3A34)
