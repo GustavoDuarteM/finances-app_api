@@ -1,10 +1,9 @@
 class Api::V1::MonthlyOperationsController < ApiApplicationController
   before_action :set_monthly_operation, only: [:show, :destroy, :update]
   before_action :monthly_operation_params, only: [:create, :update]
+  before_action :not_found_monthly_operation, only: [:show, :destroy, :update], if: -> { @monthly_operation.blank? }
 
   def show
-    return not_found_monthly_operation if @monthly_operation.blank?
-
     render json: @monthly_operation
   end
 
@@ -18,8 +17,6 @@ class Api::V1::MonthlyOperationsController < ApiApplicationController
   end
 
   def update
-    return not_found_monthly_operation if @monthly_operation.blank?
-
     if @monthly_operation.update(monthly_operation_params)
       render json: @monthly_operation
     else
@@ -28,8 +25,6 @@ class Api::V1::MonthlyOperationsController < ApiApplicationController
   end
 
   def destroy
-    return not_found_monthly_operation if @monthly_operation.blank?
-
     if @monthly_operation.destroy
       render json: nil, status: :ok
     else
@@ -37,11 +32,11 @@ class Api::V1::MonthlyOperationsController < ApiApplicationController
     end
   end
 
+  private
+
   def not_found_monthly_operation
     render json: nil, status: :not_found
   end
-
-  private
 
   def monthly_operation_params
     params.require(:monthly_operation).permit(
@@ -53,6 +48,6 @@ class Api::V1::MonthlyOperationsController < ApiApplicationController
   end
 
   def set_monthly_operation
-    @monthly_operation = MonthlyOperation.where(id: params[:id]).first
+    @monthly_operation = @user.monthly_operations.where(id: params[:id]).first
   end
 end

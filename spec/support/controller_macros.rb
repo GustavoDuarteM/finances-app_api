@@ -8,8 +8,8 @@ module ControllerMacros
 
   def auth_token
     before :each do
-      user = create(:user)
-      @token = { 'Authorization': "Bearer #{ user.token }" }
+      @user = create(:user)
+      @token = { 'Authorization': "Bearer #{ @user.token }" }
     end
   end
 end

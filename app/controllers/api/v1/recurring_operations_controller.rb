@@ -3,10 +3,9 @@ class Api::V1::RecurringOperationsController < ApiApplicationController
 
   before_action :set_recurring_operation, only: [:show, :destroy, :update]
   before_action :recurring_operation_params, only: [:create, :update]
+  before_action :not_found_recurring_operation, only: [:show, :destroy, :update], if: -> { @recurring_operation.blank? }
 
   def show
-    return not_found_recurring_operation if @recurring_operation.blank?
-
     render json: @recurring_operation
   end
 
@@ -20,8 +19,6 @@ class Api::V1::RecurringOperationsController < ApiApplicationController
   end
 
   def update
-    return not_found_recurring_operation if @recurring_operation.blank?
-
     if @recurring_operation.update(recurring_operation_params)
       render json: @recurring_operation
     else
@@ -30,8 +27,6 @@ class Api::V1::RecurringOperationsController < ApiApplicationController
   end
 
   def destroy
-    return not_found_recurring_operation if @recurring_operation.blank?
-
     if @recurring_operation.destroy
       render json: nil, status: :ok
     else
@@ -56,6 +51,6 @@ class Api::V1::RecurringOperationsController < ApiApplicationController
   end
 
   def set_recurring_operation
-    @recurring_operation = RecurringOperation.where(id: params[:id]).first
+    @recurring_operation = @user.recurring_operations.where(id: params[:id]).first
   end
 end
