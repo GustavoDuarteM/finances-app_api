@@ -1,11 +1,10 @@
 class ApiApplicationController < ActionController::API
-  include ActionController::HttpAuthentication::Token::ControllerMethods
+  include UserManager
   before_action :check_auth_token
 
   private
   def check_auth_token
-    token = request.headers['AUTHORIZATION'].split.last
-    @user = User.find_by_token(token)
-    render json: nil, status: :unauthorized unless @user.present?
+    @user = AuthenticateUser.call(request.headers)
+    render json: nil, status: :unauthorized if @user.blank?
   end
 end
