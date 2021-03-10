@@ -12,8 +12,6 @@
 # updated_at:      datetime
 
 class User < ApplicationRecord
-  devise :trackable, :timeoutable, :omniauthable, omniauth_providers: [:google_oauth2]
-
   validates :name, :email, :uid, presence: true
 
   has_many :recurring_operations
