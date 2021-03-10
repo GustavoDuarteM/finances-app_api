@@ -1,4 +1,4 @@
-class Api::V1::RecurringOperationsController < ApiApplicationController
+class Api::V1::RecurringOperationsController < ApplicationController
   include RecurringOperationManager
 
   before_action :set_recurring_operation, only: [:show, :destroy, :update]
