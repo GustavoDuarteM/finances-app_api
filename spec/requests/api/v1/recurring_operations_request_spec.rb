@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe "Api::V1::RecurringOperation", type: :request do
  
   describe "Authenticate user" do
-  auth_token  
+    login_user
+
     it "Creates a RecurringOperation" do
       recurring_operation = build(:recurring_operation, user: nil).attributes
       post "/api/v1/recurring_operations", params: { recurring_operation: recurring_operation }, headers: @token

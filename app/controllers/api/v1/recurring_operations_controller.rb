@@ -1,4 +1,6 @@
 class Api::V1::RecurringOperationsController < ApplicationController
+  before_action :authorize_access_request!
+  
   include RecurringOperationManager
 
   before_action :set_recurring_operation, only: [:show, :destroy, :update]
@@ -10,7 +12,7 @@ class Api::V1::RecurringOperationsController < ApplicationController
   end
 
   def create
-    @recurring_operation = @user.recurring_operations.new(recurring_operation_params)
+    @recurring_operation = current_user.recurring_operations.new(recurring_operation_params)
     if RecurringOperationCreator.call(@recurring_operation)
       render json: @recurring_operation, status: :created
     else
@@ -51,6 +53,6 @@ class Api::V1::RecurringOperationsController < ApplicationController
   end
 
   def set_recurring_operation
-    @recurring_operation = @user.recurring_operations.where(id: params[:id]).first
+    @recurring_operation = current_user.recurring_operations.where(id: params[:id]).first
   end
 end

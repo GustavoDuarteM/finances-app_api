@@ -1,4 +1,6 @@
 class Api::V1::MonthlyOperationsController < ApplicationController
+  before_action :authorize_access_request!
+  
   before_action :set_monthly_operation, only: [:show, :destroy, :update]
   before_action :monthly_operation_params, only: [:create, :update]
   before_action :not_found_monthly_operation, only: [:show, :destroy, :update], if: -> { @monthly_operation.blank? }
@@ -8,7 +10,7 @@ class Api::V1::MonthlyOperationsController < ApplicationController
   end
 
   def create
-    @monthly_operation = @user.monthly_operations.new(monthly_operation_params)
+    @monthly_operation = current_user.monthly_operations.new(monthly_operation_params)
     if @monthly_operation.save
       render json: @monthly_operation, status: :created
     else
@@ -48,6 +50,6 @@ class Api::V1::MonthlyOperationsController < ApplicationController
   end
 
   def set_monthly_operation
-    @monthly_operation = @user.monthly_operations.where(id: params[:id]).first
+    @monthly_operation = current_user.monthly_operations.where(id: params[:id]).first
   end
 end

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::MonthlyOperations", type: :request do
   describe "Authenticate user" do
-    auth_token
+    login_user
 
     it "Creates a MonthlyOperations" do
       monthly_operation = build(:monthly_operation, user: nil).attributes
