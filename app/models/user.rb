@@ -1,9 +1,9 @@
+# frozen_string_literal: true
+
 # Table: users
 # id:              integer
 # email:           string
-# uid:             string
 # name:            string
-# image_url:       string
 # token:           string
 # expires_at:      integer
 # refresh_token:   string
@@ -12,8 +12,11 @@
 # updated_at:      datetime
 
 class User < ApplicationRecord
-  validates :name, :email, :uid, presence: true
+  has_secure_password
 
   has_many :recurring_operations
   has_many :monthly_operations
+
+  validates :name, :password, presence: true
+  validates :email, presence: true, uniqueness: true, format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/ }
 end
