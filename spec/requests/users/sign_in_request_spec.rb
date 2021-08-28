@@ -1,14 +1,37 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Users::SignIns", type: :request do
+RSpec.describe 'Users::SignIns', type: :request do
+  describe 'User sign in' do
+    let(:email) { Faker::Internet.email }
+    let(:password) { Faker::Internet.password }
+    let(:user_params) { { email: email, password: password } }
 
-  describe "User sign in" do
-    it "returns http success" do
-      user = create(:user)
-      post "/users/sign_in" , params: { email: user.email, uid: user.uid }
-      expect(response).to have_http_status(:success)
-      expect(cookies[:jwt_access]).to_not eq nil
+    subject { post '/users/sign_in', params: user_params }
+
+    before do
+      create(:user, email: email, password: password)
+    end
+
+    context 'when a valid user' do
+      it 'returns http success' do
+        subject
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    context 'when not a valid user' do
+      let(:user_params) {
+        {
+          email: Faker::Internet.email,
+          password: Faker::Internet.password
+        }
+      }
+      it 'returns http unauthorized' do
+        subject
+        expect(response).to have_http_status(:unauthorized)
+      end
     end
   end
-
 end
