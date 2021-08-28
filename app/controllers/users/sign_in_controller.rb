@@ -1,27 +1,20 @@
-class Users::SignInController < ApplicationController
-  before_action :authorize_access_request!, only: [:destroy]
+# frozen_string_literal: true
 
-  def create
-    
-    user = User.where(email: params[:email], uid: params[:uid]).first
-    if user.present?
-
-      payload = { user_id: user.id }
-      session = JWTSessions::Session.new(payload: payload, refresh_by_access_allowed: true)
-      tokens = session.login
-      response.set_cookie(JWTSessions.access_cookie,
-                          value: tokens[:access],
-                          httponly: true,
-                          secure: Rails.env.production?)
-
-      render json: { csrf: tokens[:csrf] }
-    else
-      render json: "Invalid email or password", status: :unauthorized
+module Users
+  class SignInController < ApplicationController
+    def create
+      user = User.where(email: user_params[:email]).first
+      if user&.authenticate(user_params[:password])
+        payload = { user_id: user.id }
+        session = JWTSessions::Session.new(payload: payload)
+        render json: { jwt: session.login[:access] }
+      else
+        render json: 'Invalid email or password', status: :unauthorized
+      end
     end
-  end
-  private
 
-  def not_found_user
-    render json: :not_found
+    def user_params
+      params.permit(:email, :password)
+    end
   end
 end
