@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Table: monthly_operations
 # id:                  integer
 # name:                string
@@ -40,7 +42,7 @@ RSpec.describe MonthlyOperation, type: :model do
     expect(monthly_operation).to_not be_valid
   end
 
-  it "belongs to recurring operation" do
+  it 'belongs to recurring operation' do
     association = MonthlyOperation.reflect_on_association(:recurring_operation).macro
     expect(association).to eq(:belongs_to)
   end

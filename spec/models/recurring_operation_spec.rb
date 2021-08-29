@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe RecurringOperation, type: :model do
@@ -31,9 +33,8 @@ RSpec.describe RecurringOperation, type: :model do
     expect(recurring_operation).to_not be_valid
   end
 
-  it "has many monthly_operations" do
+  it 'has many monthly_operations' do
     association = RecurringOperation.reflect_on_association(:monthly_operations).macro
     expect(association).to eq(:has_many)
   end
-  
 end

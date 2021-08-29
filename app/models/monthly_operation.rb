@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Table: monthly_operations
 # id:                  integer
 # name:                string
@@ -8,7 +10,6 @@
 # updated_at:          datetime
 
 class MonthlyOperation < ApplicationRecord
-  acts_as_paranoid
   belongs_to :recurring_operation, optional: true
   belongs_to :user
 
@@ -19,5 +20,4 @@ class MonthlyOperation < ApplicationRecord
     onflows: 0,
     outflow: 1
   }
-
 end

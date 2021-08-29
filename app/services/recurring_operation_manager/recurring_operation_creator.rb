@@ -2,6 +2,7 @@
 
 module RecurringOperationManager
   class RecurringOperationCreator
+
     def initialize(recurring_operation)
       @recurring_operation = recurring_operation
       @user = recurring_operation.user

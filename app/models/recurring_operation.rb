@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Table: recurring_operations
 # id:                integer
 # name:              string
@@ -10,7 +12,6 @@
 # deleted_at:        datetime
 
 class RecurringOperation < ApplicationRecord
-  acts_as_paranoid
   belongs_to :user
   has_many :monthly_operations
 
@@ -21,5 +22,4 @@ class RecurringOperation < ApplicationRecord
     onflows: 0,
     outflow: 1
   }
-
 end
