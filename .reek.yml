@@ -1,0 +1,19 @@
+detectors:
+  # You can disable smells completely
+  IrresponsibleModule:
+    enabled: false
+  UncommunicativeModuleName:
+    accept:
+    - "/(V[0-9])/"
+
+directories:
+  'app/controllers/':
+    InstanceVariableAssumption:
+      enabled: false
+
+exclude_paths:
+  - lib/**/*
+  - config/**/*
+  - db/**/*
+  - bin/**/*
+  - spec/**/*

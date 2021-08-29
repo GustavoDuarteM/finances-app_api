@@ -19,20 +19,20 @@ module RecurringOperationManager
 
     private
 
-    def add_recurring_operation(due_date)
+    def add_recurring_operation(date)
       @recurring_operation.monthly_operations.new(
         name: @recurring_operation.name,
         value: @recurring_operation.value,
-        date_of_operation: calculate_due_date(due_date),
+        date_of_operation: calculate_due_date(date),
         operation_type: @recurring_operation.operation_type,
         user: @user
       )
     end
 
-    def calculate_due_date(due_date)
-      temp_date = due_date.change({ day: @recurring_operation.starts_in.day })
-      if temp_date.month == due_date.month
-        due_date.change({ day: @recurring_operation.starts_in.day })
+    def calculate_due_date(date)
+      temp_date = date.change({ day: @recurring_operation.starts_in.day })
+      if temp_date.month == date.month
+        temp_date
       else
         due_date.end_of_month
       end

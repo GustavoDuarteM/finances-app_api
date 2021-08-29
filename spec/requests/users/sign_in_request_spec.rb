@@ -22,12 +22,12 @@ RSpec.describe 'Users::SignIns', type: :request do
     end
 
     context 'when not a valid user' do
-      let(:user_params) {
+      let(:user_params) do
         {
           email: Faker::Internet.email,
           password: Faker::Internet.password
         }
-      }
+      end
       it 'returns http unauthorized' do
         subject
         expect(response).to have_http_status(:unauthorized)
