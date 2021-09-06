@@ -20,4 +20,9 @@ class Operation < ApplicationRecord
     onflows: 0,
     outflow: 1
   }
+
+  enum operation_frequency: {
+    single: 0,
+    recurring: 1
+  }
 end

@@ -22,4 +22,7 @@ class RecurringOperation < ApplicationRecord
     onflows: 0,
     outflow: 1
   }
+  enum operation_frequency: {
+    monthly: 0
+  }
 end

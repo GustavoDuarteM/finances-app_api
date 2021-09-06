@@ -6,6 +6,7 @@ class CreateRecurringOperations < ActiveRecord::Migration[6.1]
       t.date :starts_in
       t.date :ends_in
       t.integer :operation_type
+      t.integer :operation_frequency
 
       t.timestamps
     end
