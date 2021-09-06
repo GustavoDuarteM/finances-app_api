@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Table: monthly_operations
+# Table: operations
 # id:                  integer
 # name:                string
 # value:               float
@@ -9,7 +9,7 @@
 # created_at:          datetime
 # updated_at:          datetime
 
-class MonthlyOperation < ApplicationRecord
+class Operation < ApplicationRecord
   belongs_to :recurring_operation, optional: true
   belongs_to :user
 

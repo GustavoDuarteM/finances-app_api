@@ -33,8 +33,8 @@ RSpec.describe RecurringOperation, type: :model do
     expect(recurring_operation).to_not be_valid
   end
 
-  it 'has many monthly_operations' do
-    association = RecurringOperation.reflect_on_association(:monthly_operations).macro
+  it 'has many operations' do
+    association = RecurringOperation.reflect_on_association(:operations).macro
     expect(association).to eq(:has_many)
   end
 end

@@ -20,7 +20,7 @@ module RecurringOperationManager
     private
 
     def add_recurring_operation(date)
-      @recurring_operation.monthly_operations.new(
+      @recurring_operation.operations.new(
         name: @recurring_operation.name,
         value: @recurring_operation.value,
         date_of_operation: calculate_due_date(date),

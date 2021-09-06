@@ -13,7 +13,7 @@
 
 class RecurringOperation < ApplicationRecord
   belongs_to :user
-  has_many :monthly_operations
+  has_many :operations
 
   validates :name, :starts_in, :operation_type, presence: true
   validates :value, numericality: { greater_than: 0 }
