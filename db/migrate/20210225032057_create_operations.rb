@@ -4,8 +4,8 @@ class CreateOperations < ActiveRecord::Migration[6.1]
       t.string :name
       t.float :value
       t.date :date_of_operation
-      t.integer :operation_type
-      t.integer :operation_frequency
+      t.integer :operation_flow
+
       t.timestamps
     end
   end

@@ -28,8 +28,8 @@ RSpec.describe RecurringOperation, type: :model do
     expect(recurring_operation).to_not be_valid
   end
 
-  it 'Is invalid without operation_type ' do
-    recurring_operation = build(:recurring_operation, operation_type: nil)
+  it 'Is invalid without operations_flow ' do
+    recurring_operation = build(:recurring_operation, operations_flow: nil)
     expect(recurring_operation).to_not be_valid
   end
 

@@ -49,7 +49,7 @@ module Api
           :name,
           :value,
           :date_of_operation,
-          :operation_type
+          :operation_flow
         )
       end
 

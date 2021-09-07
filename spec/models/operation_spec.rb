@@ -37,8 +37,8 @@ RSpec.describe Operation, type: :model do
     expect(operation).to_not be_valid
   end
 
-  it 'Is invalid without operation_type ' do
-    operation = build(:operation, operation_type: nil)
+  it 'Is invalid without operation_flow ' do
+    operation = build(:operation, operation_flow: nil)
     expect(operation).to_not be_valid
   end
 

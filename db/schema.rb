@@ -19,8 +19,7 @@ ActiveRecord::Schema.define(version: 2021_08_28_175509) do
     t.string "name"
     t.float "value"
     t.date "date_of_operation"
-    t.integer "operation_type"
-    t.integer "operation_frequency"
+    t.integer "operation_flow"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "recurring_operation_id"
@@ -34,7 +33,8 @@ ActiveRecord::Schema.define(version: 2021_08_28_175509) do
     t.float "value"
     t.date "starts_in"
     t.date "ends_in"
-    t.integer "operation_type"
+    t.integer "operations_flow"
+    t.integer "operations_frequency"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
