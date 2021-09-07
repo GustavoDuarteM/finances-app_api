@@ -53,7 +53,8 @@ module Api
           :value,
           :starts_in,
           :ends_in,
-          :operation_type
+          :operations_flow,
+          :operations_frequency
         )
       end
 
