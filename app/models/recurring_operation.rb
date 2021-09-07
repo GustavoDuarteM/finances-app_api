@@ -15,7 +15,7 @@ class RecurringOperation < ApplicationRecord
   belongs_to :user
   has_many :operations
 
-  validates :name, :starts_in, :operations_flow, presence: true
+  validates :name, :starts_in, :operations_flow, :operations_frequency, presence: true
   validates :value, numericality: { greater_than: 0 }
 
   enum operations_flow: {

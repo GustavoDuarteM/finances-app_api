@@ -33,6 +33,11 @@ RSpec.describe RecurringOperation, type: :model do
     expect(recurring_operation).to_not be_valid
   end
 
+  it 'Is invalid without operations_frequency ' do
+    recurring_operation = build(:recurring_operation, operations_frequency: nil)
+    expect(recurring_operation).to_not be_valid
+  end
+
   it 'has many operations' do
     association = RecurringOperation.reflect_on_association(:operations).macro
     expect(association).to eq(:has_many)
