@@ -3,13 +3,13 @@
 namespace :dev do
   desc 'Configure the development environment '
   task setup: :environment do
-    return if Rails.env.development?
+    return unless Rails.env.development?
 
     show_spinner('Deleting Databases...') { `rails db:drop` }
     show_spinner('Creating Database...') { `rails db:create` }
     show_spinner('Migrating Database...') { `rails db:migrate` }
     show_spinner('Add users...') { `rails dev:add_user` }
-    show_spinner('Add monthly operation...') { `rails dev:add_monthly_operations` }
+    show_spinner('Add operation...') { `rails dev:add_operations` }
   end
 
   desc 'Inserting User'
@@ -17,10 +17,10 @@ namespace :dev do
     FactoryBot.create(:user, email: 'user@email.com', password: '123456')
   end
 
-  desc 'Inserting monthly operation '
-  task add_monthly_operations: :environment do
+  desc 'Inserting operation '
+  task add_operations: :environment do
     user = User.last
-    FactoryBot.create_list(:monthly_operation, rand(1...200), user: user)
+    FactoryBot.create_list(:operation, rand(1...200), user: user)
   end
 
   private
