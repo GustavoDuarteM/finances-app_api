@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2021_08_28_175509) do
     t.float "value"
     t.date "date_of_operation"
     t.integer "operation_flow"
+    t.integer "step"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "recurring_operation_id"

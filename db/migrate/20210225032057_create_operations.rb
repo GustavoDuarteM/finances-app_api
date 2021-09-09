@@ -5,6 +5,7 @@ class CreateOperations < ActiveRecord::Migration[6.1]
       t.float :value
       t.date :date_of_operation
       t.integer :operation_flow
+      t.integer :step
 
       t.timestamps
     end
