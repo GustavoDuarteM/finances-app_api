@@ -13,29 +13,11 @@ RSpec.describe RecurringOperation, type: :model do
     expect(recurring_operation).to be_valid
   end
 
-  it 'Is invalid without name ' do
-    recurring_operation = build(:recurring_operation, name: nil)
-    expect(recurring_operation).to_not be_valid
-  end
-
-  it 'Is invalid without value ' do
-    recurring_operation = build(:recurring_operation, value: nil)
-    expect(recurring_operation).to_not be_valid
-  end
-
-  it 'Is invalid without starts_in ' do
-    recurring_operation = build(:recurring_operation, starts_in: nil)
-    expect(recurring_operation).to_not be_valid
-  end
-
-  it 'Is invalid without operations_flow ' do
-    recurring_operation = build(:recurring_operation, operations_flow: nil)
-    expect(recurring_operation).to_not be_valid
-  end
-
-  it 'Is invalid without operations_frequency ' do
-    recurring_operation = build(:recurring_operation, operations_frequency: nil)
-    expect(recurring_operation).to_not be_valid
+  %i[name value starts_in operations_flow operations_frequency].each do |atribute|
+    it "Is invalid without #{atribute}" do
+      recurring_operation = build(:recurring_operation, "#{atribute}": nil)
+      expect(recurring_operation).to_not be_valid
+    end
   end
 
   it 'has many operations' do
