@@ -19,18 +19,10 @@ RSpec.describe User, type: :model do
     expect(user).to be_valid
   end
 
-  it 'Is invalid without name ' do
-    user = build(:user, name: nil)
-    expect(user).to_not be_valid
-  end
-
-  it 'Is invalid without email ' do
-    user = build(:user, email: nil)
-    expect(user).to_not be_valid
-  end
-
-  it 'Is invalid without password ' do
-    user = build(:user, password: nil)
-    expect(user).to_not be_valid
+  %i[name email password].each do |atribute|
+    it "Is invalid without #{atribute}" do
+      user = build(:user, "#{atribute}": nil)
+      expect(user).to_not be_valid
+    end
   end
 end
