@@ -34,6 +34,8 @@ group :development, :test do
   gem 'reek'
   gem 'rspec-rails'
   gem 'rubocop'
+  gem 'rubocop-rspec'
+  gem 'rubocop-rails'
   gem 'rubycritic', require: false
   gem 'simplecov', require: false
 end

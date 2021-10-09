@@ -5,6 +5,7 @@
 # name:                string
 # value:               float
 # date_of_operation:   date
+# step:                integer
 # type_operation:      integer
 # created_at:          datetime
 # updated_at:          datetime
@@ -22,24 +23,11 @@ RSpec.describe Operation, type: :model do
     expect(operation).to be_valid
   end
 
-  it 'Is invalid without name ' do
-    operation = build(:operation, name: nil)
-    expect(operation).to_not be_valid
-  end
-
-  it 'Is invalid without value ' do
-    operation = build(:operation, value: nil)
-    expect(operation).to_not be_valid
-  end
-
-  it 'Is invalid without date_of_operation ' do
-    operation = build(:operation, date_of_operation: nil)
-    expect(operation).to_not be_valid
-  end
-
-  it 'Is invalid without operation_flow ' do
-    operation = build(:operation, operation_flow: nil)
-    expect(operation).to_not be_valid
+  %i[name value date_of_operation operation_flow].each do |atribute|
+    it "Is invalid without #{atribute}" do
+      operation = build(:operation, "#{atribute}": nil)
+      expect(operation).to_not be_valid
+    end
   end
 
   it 'belongs to recurring operation' do

@@ -6,8 +6,12 @@ module Api
       before_action :authorize_access_request!
 
       before_action :set_operation, only: %i[show destroy update]
-      before_action :operation_params, only: %i[create update]
-      before_action :not_found_operation, only: %i[show destroy update], if: -> { @operation.blank? }
+      before_action :set_operations, only: %i[index]
+      before_action :not_found, only: %i[show destroy update], if: -> { @operation.blank? }
+
+      def index
+        render json: @operations
+      end
 
       def show
         render json: @operation
@@ -40,12 +44,8 @@ module Api
 
       private
 
-      def not_found_operation
-        render json: nil, status: :not_found
-      end
-
       def operation_params
-        params.require(:operation).permit(
+        params.permit(
           :name,
           :value,
           :date_of_operation,
@@ -53,8 +53,48 @@ module Api
         )
       end
 
+      def page_params
+        params.permit(
+          :page
+        )
+      end
+
+      def filter_params
+        params.permit(
+          :start_in,
+          :end_in,
+          :operation_flow
+        )
+      end
+
       def set_operation
         @operation = current_user.operations.where(id: params[:id]).first
+      end
+
+      def set_operations
+        @operations = current_user.operations
+        @operations = filter_date_of_operation
+        @operations = filter_operation_flow
+        @operations = @operations.order_by_date_of_operation
+                                 .page(page_params[:page].to_i)
+                                 .group_by_date_of_operation
+      end
+
+      def filter_date_of_operation
+        start_in = filter_params[:start_in]
+        end_in = filter_params[:end_in]
+        return @operations unless start_in && end_in
+
+        return @operations.operations_between_date(start_in, end_in) if start_in && end_in
+
+        @operations.operations_start_in(start_in) if start_in
+      end
+
+      def filter_operation_flow
+        operation_flow = filter_params[:operation_flow]
+        return @operations unless operation_flow
+
+        @operations.where(operation_flow: operation_flow)
       end
     end
   end
