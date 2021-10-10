@@ -1,6 +1,5 @@
 # FinacesApp
 ##### 🚧 Em construção...  🚧
-### Esse sistema é uma ferramenta para a minha gestão financeira. Depois de alguns anos usando uma planilha, e uma pequena tragédia durante a simulação de algumas compras, eu decidi criar esse sistema.
 
 A proposta é poder gerenciar : 
 - 💰 Ganhos
