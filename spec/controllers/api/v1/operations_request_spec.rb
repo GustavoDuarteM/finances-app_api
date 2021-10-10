@@ -4,7 +4,6 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::OperationsController, type: :controller do
   describe 'GET #index' do
-
     subject do
       get :index
     end
