@@ -22,8 +22,8 @@ gem 'bcrypt', '~> 3.1.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'jwt_sessions'
-gem 'rack-cors'
 gem 'kaminari'
+gem 'rack-cors'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -34,8 +34,8 @@ group :development, :test do
   gem 'reek'
   gem 'rspec-rails'
   gem 'rubocop'
-  gem 'rubocop-rspec'
   gem 'rubocop-rails'
+  gem 'rubocop-rspec'
   gem 'rubycritic', require: false
   gem 'simplecov', require: false
 end

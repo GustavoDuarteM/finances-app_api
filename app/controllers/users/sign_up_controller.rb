@@ -7,7 +7,7 @@ module Users
 
       if user.save
         payload = { user_id: user.id }
-        session = JWTSessions::Session.new(payload: payload)
+        session = JWTSessions::Session.new(payload: payload, refresh_by_access_allowed: true)
         render json: { jwt: session.login[:access] }
       else
         render json: { error: user.errors.full_messages.join(' ,') }, status: :unprocessable_entity
