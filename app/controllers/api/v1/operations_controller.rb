@@ -6,6 +6,7 @@ module Api
       before_action :authorize_access_request!
 
       before_action :set_operation, only: %i[show destroy update]
+      before_action :filter_params, only: %i[index]
       before_action :set_operations, only: %i[index]
       before_action :not_found, only: %i[show destroy update], if: -> { @operation.blank? }
 
@@ -83,11 +84,12 @@ module Api
       def filter_date_of_operation
         start_in = filter_params[:start_in]
         end_in = filter_params[:end_in]
-        return @operations unless start_in && end_in
 
-        return @operations.operations_between_date(start_in, end_in) if start_in && end_in
+        return @operations.operations_until_current_month unless start_in && end_in
 
-        @operations.operations_start_in(start_in) if start_in
+        return @operations.operations_start_in(start_in) if start_in && end_in.blank?
+
+        @operations.operations_between_date(start_in, end_in) if start_in && end_in
       end
 
       def filter_operation_flow
