@@ -7,6 +7,7 @@ module Api
 
       before_action :set_operation, only: %i[show destroy update]
       before_action :filter_params, only: %i[index]
+      before_action :page_params, only: %i[index]
       before_action :set_operations, only: %i[index]
       before_action :not_found, only: %i[show destroy update], if: -> { @operation.blank? }
 
