@@ -65,7 +65,8 @@ module Api
         params.permit(
           :start_in,
           :end_in,
-          :operation_flow
+          :operation_flow,
+          :group_by_date
         )
       end
 
@@ -79,7 +80,7 @@ module Api
         @operations = filter_operation_flow
         @operations = @operations.order_by_date_of_operation
                                  .page(page_params[:page].to_i)
-                                 .group_by_date_of_operation
+        @operations = group_by_date
       end
 
       def filter_date_of_operation
@@ -98,6 +99,12 @@ module Api
         return @operations unless operation_flow
 
         @operations.where(operation_flow: operation_flow)
+      end
+
+      def group_by_date
+        return @operations if filter_params[:group_by_date] != 'true'
+
+        @operations.group_by_date_of_operation
       end
     end
   end
