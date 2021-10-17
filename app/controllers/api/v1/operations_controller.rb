@@ -66,7 +66,8 @@ module Api
           :start_in,
           :end_in,
           :operation_flow,
-          :group_by_date
+          :group_by_date,
+          :current_month
         )
       end
 
@@ -86,12 +87,15 @@ module Api
       def filter_date_of_operation
         start_in = filter_params[:start_in]
         end_in = filter_params[:end_in]
+        current_month = filter_params[:current_month]
 
-        return @operations.operations_until_current_month unless start_in && end_in
+        return @operations.operations_until_current_month if current_month == 'true'
 
         return @operations.operations_start_in(start_in) if start_in && end_in.blank?
 
-        @operations.operations_between_date(start_in, end_in) if start_in && end_in
+        return @operations.operations_between_date(start_in, end_in) if start_in && end_in
+
+        @operations
       end
 
       def filter_operation_flow
