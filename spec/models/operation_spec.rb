@@ -18,20 +18,10 @@ RSpec.describe Operation, type: :model do
     expect(operation).to be_valid
   end
 
-  it 'Is valid without recurring_operation ' do
-    operation = build(:operation, recurring_operation: nil)
-    expect(operation).to be_valid
-  end
-
   %i[name value date_of_operation operation_flow].each do |atribute|
     it "Is invalid without #{atribute}" do
       operation = build(:operation, "#{atribute}": nil)
       expect(operation).to_not be_valid
     end
-  end
-
-  it 'belongs to recurring operation' do
-    association = Operation.reflect_on_association(:recurring_operation).macro
-    expect(association).to eq(:belongs_to)
   end
 end

@@ -10,7 +10,6 @@
 # updated_at:          datetime
 
 class Operation < ApplicationRecord
-  belongs_to :recurring_operation, optional: true
   belongs_to :user
 
   enum operation_flow: {
