@@ -36,7 +36,7 @@ RSpec.describe Api::V1::OperationsController, type: :controller do
         it 'return empty list' do
           create_list(:operation, 10)
           subject
-          expect(response.body).to eq('{}')
+          expect(response.body).to eq('[]')
         end
       end
     end
