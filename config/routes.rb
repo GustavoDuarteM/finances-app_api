@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :operations, only: %i[index create show destroy update]
-      resources :recurring_operations, only: %i[create show destroy update]
+      resources :total_operations, only: %i[index]
     end
   end
 end

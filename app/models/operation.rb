@@ -30,10 +30,6 @@ class Operation < ApplicationRecord
     group_by { |operation| operation.date_of_operation.strftime('%m/%Y') }
   }
 
-  scope :single_operations, lambda {
-    where(recurring_operation_id: nil)
-  }
-
   scope :operations_until_current_month, lambda {
     where('date_of_operation < ?', Date.today.end_of_month)
   }
@@ -44,5 +40,9 @@ class Operation < ApplicationRecord
 
   scope :operations_between_date, lambda { |start_in:, end_in:|
     where('date_of_operation >= ? AND date_of_operation <= ?', start_in, end_in)
+  }
+
+  scope :sum_operation, lambda { |flow:|
+    where(operation_flow: flow).sum(:value)
   }
 end
