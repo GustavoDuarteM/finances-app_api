@@ -26,23 +26,31 @@ class Operation < ApplicationRecord
     order('date_of_operation DESC')
   }
 
+  scope :order_by_operation_flow, lambda {
+    order(:operation_flow)
+  }
+
   scope :group_by_date_of_operation, lambda {
     group_by { |operation| operation.date_of_operation.strftime('%m/%Y') }
   }
 
-  scope :operations_until_current_month, lambda {
+  scope :until_current_month, lambda {
     where('date_of_operation < ?', Date.today.end_of_month)
   }
 
-  scope :operations_start_in, lambda { |start_in|
+  scope :start_in, lambda { |start_in|
     where('date_of_operation > ?', start_in)
   }
 
-  scope :operations_between_date, lambda { |start_in:, end_in:|
+  scope :between_date, lambda { |start_in:, end_in:|
     where('date_of_operation >= ? AND date_of_operation <= ?', start_in, end_in)
   }
 
   scope :sum_operation, lambda { |flow:|
     where(operation_flow: flow).sum(:value)
+  }
+
+  scope :by_name, lambda { |name:|
+    where('name LIKE ?', "%#{name}%")
   }
 end

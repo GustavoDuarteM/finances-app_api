@@ -22,8 +22,7 @@ module Api
       private
 
       def set_operations
-        @operations = current_user.operations
-        @operations = @operations.operations_between_date(
+        @operations = current_user.operations.between_date(
           start_in: Date.today.beginning_of_month,
           end_in: Date.today.end_of_month
         )

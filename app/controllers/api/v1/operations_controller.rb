@@ -63,6 +63,7 @@ module Api
 
       def filter_params
         params.permit(
+          :name,
           :start_in,
           :end_in,
           :operation_flow,
@@ -77,6 +78,7 @@ module Api
 
       def set_operations
         @operations = current_user.operations
+        @operations = filter_by_name
         @operations = filter_date_of_operation
         @operations = filter_operation_flow
         @operations = @operations.order_by_date_of_operation
@@ -89,11 +91,11 @@ module Api
         end_in = filter_params[:end_in]
         current_month = filter_params[:current_month]
 
-        return @operations.operations_until_current_month if current_month == 'true'
+        return @operations.until_current_month if current_month == 'true'
 
-        return @operations.operations_start_in(start_in) if start_in && end_in.blank?
+        return @operations.start_in(start_in) if start_in && end_in.blank?
 
-        return @operations.operations_between_date(start_in, end_in) if start_in && end_in
+        return @operations.between_date(start_in, end_in) if start_in && end_in
 
         @operations
       end
@@ -109,6 +111,13 @@ module Api
         return @operations if filter_params[:group_by_date] != 'true'
 
         @operations.group_by_date_of_operation
+      end
+
+      def filter_by_name
+        name = filter_params[:name]
+        return @operations unless name
+
+        @operations.by_name(name: name)
       end
     end
   end
