@@ -95,7 +95,7 @@ module Api
 
         return @operations.start_in(start_in) if start_in && end_in.blank?
 
-        return @operations.between_date(start_in, end_in) if start_in && end_in
+        return @operations.between_date(start_in: start_in, end_in: end_in) if start_in && end_in
 
         @operations
       end
